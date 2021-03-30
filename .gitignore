@@ -1,3 +1,4 @@
 node_modules/
 .idea/
 src/config/db.json
+src/.DS_Store
