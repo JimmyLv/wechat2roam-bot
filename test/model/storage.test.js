@@ -1,12 +1,11 @@
-const Storager = require('../../src/model/storager');
-const Event = require('../../src/model/event')
+const Storage = require('../../src/model/storage');
 const fs = require('fs')
 const path = require('path')
 describe('storage', function () {
 	it('should save key-value item and get it success', function () {
-		let storager = new Storager();
-		storager.set('event', '排期接龙');
-		let value = storager.get('event');
+		let storage = new Storage();
+		storage.set('event', '排期接龙');
+		let value = storage.get('event');
 		expect(value.toString()).toBe('排期接龙');
 	});
 
@@ -16,8 +15,8 @@ describe('storage', function () {
 			fs.unlinkSync(jsonFile);
 			expect(fs.existsSync(jsonFile)).toBe(false)
 		}
-		let storager = new Storager();
-		let value = storager.get('event');
+		let storage = new Storage();
+		let value = storage.get('event');
 		expect(value).toBe(undefined);
 		expect(fs.existsSync(jsonFile)).toBe(true);
 	});

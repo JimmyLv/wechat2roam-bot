@@ -1,10 +1,10 @@
 const Calendar = require('../../src/model/calendar');
 const Schedule = require('../../src/model/schedule');
-const Storager = require('../../src/model/storager');
+const Storage = require('../../src/model/storage');
 describe('Events', function () {
 	it('should get old eventsData success when restart', function () {
-		const storager = new Storager();
-		storager.clear();
+		const storage = new Storage();
+		storage.clear();
 		const calendar = new Calendar('2021-1-1');
 		const schedule = new Schedule(calendar);
 		schedule.book('0101', 'Seaborn');

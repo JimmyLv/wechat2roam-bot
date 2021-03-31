@@ -2,7 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const jsonFile = path.resolve(__dirname, '../config/db.json')
 
-class Storager {
+class Storage {
 	constructor() {
 		this.createFileIfNotExist();
 	}
@@ -38,4 +38,4 @@ class Storager {
 	}
 }
 
-module.exports = Storager;
+module.exports = Storage;

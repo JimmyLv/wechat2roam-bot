@@ -1,6 +1,6 @@
 const Event = require('./event');
-const Storager = require('./storager');
-const storager = new Storager();
+const Storage = require('./storage');
+const storage = new Storage();
 
 class Events {
 
@@ -12,7 +12,7 @@ class Events {
 	}
 
 	getEvents() {
-		let events = storager.get('events');
+		let events = storage.get('events');
 		return events ? events.map((e) => parse(e.date, e.hosts)) : null;
 	}
 
@@ -42,7 +42,7 @@ class Events {
 	}
 
 	saveEvents(events) {
-		storager.set('events', events.map((e) => new Event(e.date, e.hosts)));
+		storage.set('events', events.map((e) => new Event(e.date, e.hosts)));
 	}
 
 	travelTo(calendar) {
