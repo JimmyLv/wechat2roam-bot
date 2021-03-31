@@ -9,12 +9,14 @@ const roomNameMatcher = new RoomNameMatcher([
   new OpsHandler(),
 ]);
 
+let qrcodeURL = "";
 let started = false;
 const printURLOnPage = (url) => {
+  qrcodeURL = url;
   if (started) return;
   const requestListener = (req, res) => {
     res.writeHead(200);
-    res.end(`<script>location.href='${url}'</script>`);
+    res.end(`<script>location.href='${qrcodeURL}'</script>`);
   };
 
   const server = http.createServer(requestListener);
