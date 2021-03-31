@@ -1,4 +1,5 @@
 const Storager = require('../../src/model/storager');
+const Event = require('../../src/model/event')
 const fs = require('fs')
 const path = require('path')
 describe('storage', function () {

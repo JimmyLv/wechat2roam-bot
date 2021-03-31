@@ -1,5 +1,8 @@
 const Schedule = require("../../src/model/schedule");
 const Calendar = require("../../src/model/calendar");
+const Storager = require("../../src/model/storager");
+const storager = new Storager();
+
 
 describe("Schedule", () => {
   it("should book failed given invalid date", () => {
@@ -9,6 +12,7 @@ describe("Schedule", () => {
   });
 
   it("should book with date and user", () => {
+    storager.clear();
     const calendar = new Calendar("2021-1-1");
     const schedule = new Schedule(calendar);
     schedule.book("0101", "Seaborn");
@@ -19,6 +23,7 @@ describe("Schedule", () => {
   });
 
   it("should book with index and user", () => {
+    storager.clear();
     const calendar = new Calendar("2021-1-1");
     const schedule = new Schedule(calendar);
     schedule.book("1", "Seaborn");

@@ -33,6 +33,9 @@ class Storager {
 		fs.writeFileSync(jsonFile, JSON.stringify(json));
 	}
 
+	clear() {
+		fs.writeFileSync(jsonFile, JSON.stringify({}))
+	}
 }
 
 module.exports = Storager;

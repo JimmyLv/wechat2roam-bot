@@ -2,8 +2,7 @@ const Events = require('./events');
 
 class Schedule {
 	constructor(calendar) {
-		const commingEventDates = calendar.getComingEventDates(5);
-		this.events = new Events(commingEventDates);
+		this.events = new Events(calendar);
 	}
 
 	toString() {
