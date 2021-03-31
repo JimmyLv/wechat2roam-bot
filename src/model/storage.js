@@ -18,12 +18,6 @@ class Storage {
 		return json[key];
 	}
 
-	createFileIfNotExist() {
-		if (!fs.existsSync(jsonFile)) {
-			fs.writeFileSync(jsonFile, JSON.stringify({}))
-		}
-	}
-
 	readDb() {
 		let data = fs.readFileSync(jsonFile, 'utf-8');
 		return JSON.parse(data.toString());
@@ -36,6 +30,13 @@ class Storage {
 	clear() {
 		fs.writeFileSync(jsonFile, JSON.stringify({}))
 	}
+
+	createFileIfNotExist() {
+		if (!fs.existsSync(jsonFile)) {
+			fs.writeFileSync(jsonFile, JSON.stringify({}))
+		}
+	}
+
 }
 
 module.exports = Storage;

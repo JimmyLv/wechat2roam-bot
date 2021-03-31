@@ -6,7 +6,7 @@ class Schedule {
 	}
 
 	toString() {
-		return this.title() + this.events.eventsString();
+		return this.title() + this.events.toString();
 	}
 
 	title() {

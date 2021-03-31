@@ -1,56 +1,59 @@
 const Event = require('./event');
-const Storage = require('./storage');
-const storage = new Storage();
+const EventStorage = require('./eventStorage');
+const eventStorage = new EventStorage();
+
 
 class Events {
 
 	constructor(calendar) {
-		if (!this.getEvents()) {
+		if (eventStorage.hasNoEvents()) {
 			let events = calendar.getComingEventDates(5).map((date) => new Event(date, []));
-			this.saveEvents(events);
+			eventStorage.saveEvents(events);
 		}
 	}
 
-	getEvents() {
-		let events = storage.get('events');
-		return events ? events.map((e) => parse(e.date, e.hosts)) : null;
-	}
-
-	eventsString() {
-		let events = this.getEvents();
-		return events.map((e, index) => e.toString(index + 1)).join('\n');
+	toString() {
+		return eventStorage.getEvents()
+			.map((e, index) => e.toString(index + 1)).join('\n');
 	}
 
 	book(dateOrIndex, name) {
-		const index = Number(dateOrIndex);
-		if (index >= 1 && index <= 5) {
-			let eventsData = this.getEvents();
-			eventsData[index - 1].appendHost(name);
-			this.saveEvents(eventsData);
-			return true;
+		if (this.isNumber(dateOrIndex)) {
+			return this.bookByNumber(dateOrIndex, name);
 		}
+		return this.bookByDate(dateOrIndex, name);
+	}
 
-		let eventsData = this.getEvents();
-		const event = eventsData.find((e) => e.date === dateOrIndex);
+	bookByDate(date, name) {
+		let events = eventStorage.getEvents();
+		const event = events.find((e) => e.date === date);
 		if (event) {
 			event.appendHost(name);
-			this.saveEvents(eventsData);
+			eventStorage.saveEvents(events);
 			return true;
 		}
-
 		return false;
 	}
 
-	saveEvents(events) {
-		storage.set('events', events.map((e) => new Event(e.date, e.hosts)));
+	bookByNumber(number, name) {
+		const index = Number(number);
+		let events = eventStorage.getEvents();
+		events[index - 1].appendHost(name);
+		eventStorage.saveEvents(events);
+		return true;
+	}
+
+	isNumber(dateOrIndex) {
+		const index = Number(dateOrIndex);
+		return index >= 1 && index <= 5;
 	}
 
 	travelTo(calendar) {
 		const eventDates = calendar.getComingEventDates(5);
-		let events = this.getEvents();
+		let events = eventStorage.getEvents();
 		this.removeOutdatedEvents(events, eventDates);
 		this.addComingEvents(events, eventDates);
-		this.saveEvents(events);
+		eventStorage.saveEvents(events);
 	}
 
 	removeOutdatedEvents(events, eventDates) {
@@ -63,10 +66,6 @@ class Events {
 				events.push(new Event(date, []));
 		});
 	}
-}
-
-function parse(date, hosts) {
-	return new Event(date, hosts);
 }
 
 module.exports = Events;
