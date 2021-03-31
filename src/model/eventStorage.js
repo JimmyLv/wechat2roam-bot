@@ -14,8 +14,8 @@ class EventStorage {
 		storage.set(key, events.map((e) => new Event(e.date, e.hosts)));
 	}
 
-	hasNoEvents() {
-		return !this.getEvents();
+	hasEvents() {
+		return this.getEvents();
 	}
 }
 

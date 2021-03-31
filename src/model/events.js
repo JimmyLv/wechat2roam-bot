@@ -6,7 +6,9 @@ const eventStorage = new EventStorage();
 class Events {
 
 	constructor(calendar) {
-		if (eventStorage.hasNoEvents()) {
+		if (eventStorage.hasEvents()) {
+			this.travelTo(calendar);
+		} else {
 			let events = calendar.getComingEventDates(5).map((date) => new Event(date, []));
 			eventStorage.saveEvents(events);
 		}
@@ -51,13 +53,13 @@ class Events {
 	travelTo(calendar) {
 		const eventDates = calendar.getComingEventDates(5);
 		let events = eventStorage.getEvents();
-		this.removeOutdatedEvents(events, eventDates);
+		events = this.removeOutdatedEvents(events, eventDates);
 		this.addComingEvents(events, eventDates);
 		eventStorage.saveEvents(events);
 	}
 
 	removeOutdatedEvents(events, eventDates) {
-		events.filter((e) => eventDates.includes(e.date));
+		return events.filter((e) => eventDates.includes(e.date));
 	}
 
 	addComingEvents(events, eventDates) {
