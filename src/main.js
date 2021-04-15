@@ -1,3 +1,4 @@
+const http = require("http");
 const { Wechaty, log } = require("wechaty");
 const RoamHandler = require("./handler/roamHandler");
 const RoomNameMatcher = require("./roomNameMatcher");
@@ -5,13 +6,32 @@ const sendToRoam = require("./services/roam");
 
 const roomNameMatcher = new RoomNameMatcher([new RoamHandler()]);
 
+let qrcodeURL = "";
+let started = false;
+const printURLOnPage = (url) => {
+  qrcodeURL = url;
+  if (started) return;
+  const requestListener = (req, res) => {
+    res.writeHead(200);
+    res.end(`<script>location.href='${qrcodeURL}'</script>`);
+  };
+
+  const server = http.createServer(requestListener);
+  server.listen(80);
+  console.log("Server started at: http://localhost");
+  started = true;
+};
+
 function onEasyScan(qrcode, status) {
   require("qrcode-terminal").generate(qrcode); // 在console端显示二维码
+
   const qrcodeImageUrl = [
     "https://wechaty.js.org/qrcode/",
     encodeURIComponent(qrcode),
   ].join("");
   console.log(qrcodeImageUrl);
+
+  printURLOnPage(qrcodeImageUrl);
 }
 
 Wechaty.instance({ name: "wechat2roam-bot" }) // Singleton

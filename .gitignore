@@ -3,3 +3,5 @@ node_modules/
 src/config/db.json
 src/.DS_Store
 config/db.json
+
+.vercel
