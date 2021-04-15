@@ -4,14 +4,12 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node src/main.js",
-    "test": "hlj test/"
+    "start": "node src/main.js"
   },
   "dependencies": {
-    "roam-research-private-api": "^0.9.3",
-    "wechaty": "^0.56.6"
-  },
-  "devDependencies": {
-    "hlj": "0.4.0"
+    "qrcode-terminal": "^0.12.0",
+    "roam-research-private-api": "JimmyLv/roam-research-private-api",
+    "wechaty": "^0.60.3",
+    "wechaty-puppet-wechat": "^0.28.1"
   }
 }
