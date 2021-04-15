@@ -25,7 +25,7 @@ const data = JSON.stringify(params);
 
 class OpsHandler {
   constructor() {
-    this.roomName = "软件匠艺结对直播主播群";
+    this.roomName = "roam/cn";
     this.hostname = "codingstyle-cn.coding.net";
     this.path = "/api/cci/job/550964/trigger";
     this.username = process.env.CI_USER;

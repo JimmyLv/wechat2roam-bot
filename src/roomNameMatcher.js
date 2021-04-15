@@ -10,7 +10,7 @@ class RoomNameMatcher {
     }
 
     const topic = await room.topic();
-    return this.handlers.filter((h) => h.roomName === topic);
+    return this.handlers.filter((h) => topic.includes(h.roomName));
   }
 }
 
