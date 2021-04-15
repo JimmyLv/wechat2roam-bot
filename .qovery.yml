@@ -1,0 +1,11 @@
+---
+application:
+  name: "wechat2roam-bot"
+  project: "wechat2roam-bot"
+  organization: "QoveryCommunity"
+routers:
+- name: "main-wechat2roam-bot"
+  routes:
+  - application_name: "wechat2roam-bot"
+    paths:
+    - "/*"
